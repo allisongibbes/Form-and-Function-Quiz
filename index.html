@@ -1,5 +1,5 @@
 <!-- =========================================================================
-     INTERACTIVE WIDGET 2: FICTION FORM DETECTIVE GAME (REFINED QUESTIONS)
+     INTERACTIVE WIDGET 2: FICTION FORM DETECTIVE GAME (FULLY FIXED)
      Designed for Canvas LMS Integration (Introductory Film Appreciation)
      ========================================================================= -->
 
@@ -47,7 +47,7 @@
       <!-- FEEDBACK & NEXT BUTTON -->
       <div id="eq-feedback-box" style="display: none; padding: 15px; border-radius: 6px; margin-top: 15px;">
         <p id="eq-feedback-text" style="margin: 0 0 12px 0; font-size: 14px; line-height: 1.5; font-weight: 500;"></p>
-        <button id="eq-next-btn" onclick="eqNextQuestion()" style="background: #24292e; color: white; border: none; padding: 10px 20px; border-radius: 4px; font-size: 14px; font-weight: bold; cursor: pointer;">
+        <button id="eq-next-btn" style="background: #24292e; color: white; border: none; padding: 10px 20px; border-radius: 4px; font-size: 14px; font-weight: bold; cursor: pointer;">
           Next Challenge ➔
         </button>
       </div>
@@ -59,7 +59,7 @@
       <div style="font-size: 54px; margin-bottom: 15px;">🎉</div>
       <h3 style="margin: 0 0 10px 0; font-size: 24px; color: #24292e;">Mission Accomplished!</h3>
       <p id="eq-final-score" style="font-size: 16px; color: #586069; margin-bottom: 20px; line-height: 1.5;"></p>
-      <button onclick="eqResetGame()" style="background: #28a745; color: white; border: none; padding: 12px 24px; border-radius: 6px; font-size: 15px; font-weight: bold; cursor: pointer;">
+      <button id="eq-reset-btn" style="background: #28a745; color: white; border: none; padding: 12px 24px; border-radius: 6px; font-size: 15px; font-weight: bold; cursor: pointer;">
         Play Again 🔄
       </button>
     </div>
@@ -109,9 +109,74 @@
     let eqIdx = 0;
     let eqScore = 0;
 
-    window.eqLoadQuestion = function() {
+    function eqLoadQuestion() {
       if (eqIdx >= eqQuestions.length) {
         document.getElementById('eq-game-container').style.display = 'none';
         const comp = document.getElementById('eq-completion-screen');
         comp.style.display = 'block';
-        document.getElementById('eq
+        document.getElementById('eq-final-score').innerHTML = `You successfully solved <strong>${eqScore} out of ${eqQuestions.length}</strong> documentary style puzzles!<br>You are officially a master of film form and fiction.`;
+        return;
+      }
+
+      const q = eqQuestions[eqIdx];
+      document.getElementById('eq-counter').innerText = `Challenge ${eqIdx + 1} of ${eqQuestions.length}`;
+      document.getElementById('eq-graphic').innerText = q.graphic;
+      document.getElementById('eq-title').innerText = q.title;
+      document.getElementById('eq-scenario-text').innerText = q.text;
+
+      const optContainer = document.getElementById('eq-options');
+      optContainer.innerHTML = '';
+      optContainer.style.display = 'flex';
+
+      q.options.forEach((opt) => {
+        const btn = document.createElement('button');
+        btn.innerText = opt.text;
+        btn.style.cssText = "text-align: left; padding: 14px 16px; background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; cursor: pointer; font-size: 14px; color: #24292e; font-weight: 500; transition: all 0.2s;";
+        
+        btn.onmouseover = () => btn.style.background = '#edf2f7';
+        btn.onmouseout = () => btn.style.background = '#f6f8fa';
+
+        btn.onclick = function() {
+          eqCheckAnswer(opt.correct, q.feedback);
+        };
+        optContainer.appendChild(btn);
+      });
+
+      document.getElementById('eq-feedback-box').style.display = 'none';
+    }
+
+    function eqCheckAnswer(isCorrect, feedbackText) {
+      document.getElementById('eq-options').style.display = 'none';
+      const fbBox = document.getElementById('eq-feedback-box');
+      fbBox.style.display = 'block';
+
+      if (isCorrect) {
+        eqScore++;
+        document.getElementById('eq-score').innerText = eqScore;
+        fbBox.style.background = '#e6ffed';
+        fbBox.style.border = '1px solid #acf2bd';
+        document.getElementById('eq-feedback-text').innerHTML = `<strong style="color: #28a745; font-size: 15px;">✓ Correct!</strong> ${feedbackText}`;
+      } else {
+        fbBox.style.background = '#ffeef0';
+        fbBox.style.border = '1px solid #f9d8d9';
+        document.getElementById('eq-feedback-text').innerHTML = `<strong style="color: #d73a49; font-size: 15px;">✗ Not quite!</strong> ${feedbackText}`;
+      }
+    }
+
+    document.getElementById('eq-next-btn').onclick = function() {
+      eqIdx++;
+      eqLoadQuestion();
+    };
+
+    document.getElementById('eq-reset-btn').onclick = function() {
+      eqIdx = 0;
+      eqScore = 0;
+      document.getElementById('eq-score').innerText = eqScore;
+      document.getElementById('eq-completion-screen').style.display = 'none';
+      document.getElementById('eq-game-container').style.display = 'block';
+      eqLoadQuestion();
+    };
+
+    eqLoadQuestion();
+  })();
+</script>
