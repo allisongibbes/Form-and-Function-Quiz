@@ -1,5 +1,5 @@
 <!-- =========================================================================
-     INTERACTIVE WIDGET 2: FICTION FORM DETECTIVE GAME (FULLY COMPLETED)
+     INTERACTIVE WIDGET 2: FICTION FORM DETECTIVE GAME (REFINED QUESTIONS)
      Designed for Canvas LMS Integration (Introductory Film Appreciation)
      ========================================================================= -->
 
@@ -19,7 +19,7 @@
     </div>
 
     <p style="font-size: 14px; color: #586069; line-height: 1.5; margin-bottom: 20px;">
-      Narrative feature films frequently borrow non-fiction grammar to trick or immerse viewers. Read each cinematic scenario below, examine the visual clues, and select the correct technique!
+      Narrative feature films frequently borrow non-fiction grammar to trick or immerse viewers. Read each cinematic scenario below, analyze the stylistic approach, and select the correct technique!
     </p>
 
     <!-- GAME BOARD CONTAINER -->
@@ -28,14 +28,14 @@
       <!-- PROGRESS COUNTER -->
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
         <span id="eq-counter" style="font-size: 13px; font-weight: bold; color: #6a737d; text-transform: uppercase;">Challenge 1 of 3</span>
-        <div id="eq-graphic" style="font-size: 28px;">👽</div>
+        <div id="eq-graphic" style="font-size: 28px;">🎬</div>
       </div>
 
       <!-- SCENARIO CARD -->
       <div style="background: #f1f8ff; border: 1px solid #bbe2ff; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
-        <h4 style="margin: 0 0 8px 0; font-size: 16px; color: #0366d6;" id="eq-title">Alien Segregation Newsroom</h4>
+        <h4 style="margin: 0 0 8px 0; font-size: 16px; color: #0366d6;" id="eq-title">Broadcast Integration</h4>
         <p id="eq-scenario-text" style="margin: 0; font-size: 15px; color: #24292e; line-height: 1.5; font-weight: 500;">
-          A science-fiction film about stranded extraterrestrials opens with simulated breaking-news tickers, shaky security camera footage, and expert talking-head interviews discussing containment.
+          A narrative feature film begins by weaving simulated emergency news updates, closed-circuit security camera feeds, and formal expert interviews into the opening sequence to establish a high-stakes crisis.
         </p>
       </div>
 
@@ -72,37 +72,37 @@
   (function() {
     const eqQuestions = [
       {
-        title: "Alien Segregation Newsroom (*District 9* style)",
-        graphic: "🛸",
-        text: "A science-fiction film about stranded extraterrestrials opens with simulated breaking-news tickers, shaky security camera footage, and expert talking-head interviews discussing containment.",
+        title: "Broadcast Integration",
+        graphic: "📺",
+        text: "A narrative feature film begins by weaving simulated emergency news updates, closed-circuit security camera feeds, and formal expert interviews into the opening sequence to establish a high-stakes crisis.",
         options: [
-          { text: "A. Classical Hollywood Hagiography", correct: false },
+          { text: "A. Classical Hollywood Studio Hagiography", correct: false },
           { text: "B. Documentary-Style Realism (Pseudo-Journalism)", correct: true },
           { text: "C. Direct Cinema Observational Mode", correct: false }
         ],
-        feedback: "Spot on! By using news tickers, security feeds, and expert interviews, narrative films ground fantastical sci-fi premises in documentary realism to make them feel frighteningly plausible."
+        feedback: "Spot on! By integrating news tickers, security feeds, and expert testimony, a narrative film adopts pseudo-journalistic techniques to anchor extraordinary events in perceived objective reality."
       },
       {
-        title: "The Shaky-Cam Found Footage Survival",
+        title: "The Unpolished Archive",
         graphic: "📹",
-        text: "A horror film features chaotic, handheld camera footage supposedly recovered from missing hikers, complete with static distortion and panicked whispered dialogue.",
+        text: "A dramatic narrative relies entirely on rough, erratic handheld camera footage and scrambled audio tracks that simulate raw media supposedly recovered from an unscripted real-world event.",
         options: [
           { text: "A. Found Footage / Pseudo-Documentary Realism", correct: true },
-          { text: "B. Traditional Hollywood Studio Hagiography", correct: false },
-          { text: "C. Direct Cinema Observational Mode", correct: false }
+          { text: "B. Traditional Hollywood Studio Biography", correct: false },
+          { text: "C. Controlled Studio Cinematography", correct: false }
         ],
-        feedback: "Correct! The 'found footage' aesthetic weaponizes the raw, unpolished grammar of amateur recording to generate intense psychological suspense."
+        feedback: "Correct! The 'found footage' approach leverages the unpolished, imperfect grammar of amateur recording equipment to manufacture intense immersion and suspense."
       },
       {
-        title: "The Satirical Workplace Mockumentary",
-        graphic: "📋",
-        text: "A comedy series about a chaotic office environment uses confessional interviews and documentary zoom-ins to mock everyday corporate bureaucracy.",
+        title: "Institutional Satire",
+        graphic: "🏢",
+        text: "A fictional comedy utilizes intimate talking-head confessions and unsteady observational framing to lampoon the mundane absurdities of everyday organizational culture.",
         options: [
-          { text: "A. Classical Non-Fiction Newsreel", correct: false },
-          { text: "B. Direct Cinema Historical Archive", correct: false },
+          { text: "A. Traditional Non-Fiction Newsreel", correct: false },
+          { text: "B. Observational Historical Archive", correct: false },
           { text: "C. Mockumentary / Fictional Satire", correct: true }
         ],
-        feedback: "Correct! Mockumentary formatting uses authentic documentary tropes to tell a completely made-up, comedic story designed to lampoon real human behavior."
+        feedback: "Correct! This format weaponizes standard documentary confessionals and fly-on-the-wall aesthetics to deliver pointed comedic commentary on institutional behavior."
       }
     ];
 
@@ -114,69 +114,4 @@
         document.getElementById('eq-game-container').style.display = 'none';
         const comp = document.getElementById('eq-completion-screen');
         comp.style.display = 'block';
-        document.getElementById('eq-final-score').innerHTML = `You successfully solved <strong>${eqScore} out of ${eqQuestions.length}</strong> documentary style puzzles!<br>You are officially a master of film form and fiction.`;
-        return;
-      }
-
-      const q = eqQuestions[eqIdx];
-      document.getElementById('eq-counter').innerText = `Challenge ${eqIdx + 1} of ${eqQuestions.length}`;
-      document.getElementById('eq-graphic').innerText = q.graphic;
-      document.getElementById('eq-title').innerText = q.title;
-      document.getElementById('eq-scenario-text').innerText = q.text;
-
-      const optContainer = document.getElementById('eq-options');
-      optContainer.innerHTML = '';
-      optContainer.style.display = 'flex';
-
-      q.options.forEach((opt) => {
-        const btn = document.createElement('button');
-        btn.innerText = opt.text;
-        btn.style.cssText = "text-align: left; padding: 14px 16px; background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; cursor: pointer; font-size: 14px; color: #24292e; font-weight: 500; transition: all 0.2s;";
-        
-        btn.onmouseover = () => btn.style.background = '#edf2f7';
-        btn.onmouseout = () => btn.style.background = '#f6f8fa';
-
-        btn.onclick = function() {
-          eqCheckAnswer(opt.correct, q.feedback);
-        };
-        optContainer.appendChild(btn);
-      });
-
-      document.getElementById('eq-feedback-box').style.display = 'none';
-    };
-
-    window.eqCheckAnswer = function(isCorrect, feedbackText) {
-      document.getElementById('eq-options').style.display = 'none';
-      const fbBox = document.getElementById('eq-feedback-box');
-      fbBox.style.display = 'block';
-
-      if (isCorrect) {
-        eqScore++;
-        document.getElementById('eq-score').innerText = eqScore;
-        fbBox.style.background = '#e6ffed';
-        fbBox.style.border = '1px solid #acf2bd';
-        document.getElementById('eq-feedback-text').innerHTML = `<strong style="color: #28a745; font-size: 15px;">✓ Correct!</strong> ${feedbackText}`;
-      } else {
-        fbBox.style.background = '#ffeef0';
-        fbBox.style.border = '1px solid #f9d8d9';
-        document.getElementById('eq-feedback-text').innerHTML = `<strong style="color: #d73a49; font-size: 15px;">✗ Not quite!</strong> ${feedbackText}`;
-      }
-    };
-
-    window.eqNextQuestion = function() {
-      eqIdx++;
-      eqLoadQuestion();
-    };
-
-    window.eqResetGame = function() {
-      eqIdx = 0;
-      eqScore = 0;
-      document.getElementById('eq-score').innerText = eqScore;
-      document.getElementById('eq-completion-screen').style.display = 'none';
-      document.getElementById('eq-game-container').style.display = 'block';
-      eqLoadQuestion();
-    };
-
-    eqLoadQuestion();
-  })();
-</script>
+        document.getElementById('eq
