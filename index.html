@@ -1,23 +1,88 @@
-<div class="widget-box" style="padding: 25px; background: #ffffff; border: 1px solid #d1d5db; border-radius: 6px;">
-    <div style="display: flex; align-items: center; margin-bottom: 15px;">
-      <span style="background: #28a745; color: white; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">Interactive Widget 2</span>
-      <h3 style="margin: 0 0 0 12px; font-size: 20px; color: #24292e;">Quick Check: Documentary Techniques in Fiction</h3>
+<!-- =========================================================================
+     INTERACTIVE WIDGET 2: FICTION FORM DETECTIVE GAME (FIXED & UPGRADED)
+     Designed for Canvas LMS Integration (Introductory Film Appreciation)
+     ========================================================================= -->
+
+<div class="film-app-module-container" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 850px; margin: 30px auto; padding: 25px; background: #fdfdfd; border: 1px solid #e1e4e8; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #24292e;">
+
+  <div class="widget-box" style="padding: 25px; background: #ffffff; border: 1px solid #d1d5db; border-radius: 6px;">
+    
+    <!-- HEADER WITH LIVE SCORE -->
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; border-bottom: 2px solid #eaecef; padding-bottom: 12px;">
+      <div style="display: flex; align-items: center;">
+        <span style="background: #28a745; color: white; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">Interactive Game</span>
+        <h3 style="margin: 0 0 0 12px; font-size: 20px; color: #24292e;">Fiction Form Detective Challenge</h3>
+      </div>
+      <div style="font-size: 14px; font-weight: bold; color: #586069;">
+        Score: <span id="eq-score" style="color: #28a745;">0</span> / 3
+      </div>
     </div>
+
     <p style="font-size: 14px; color: #586069; line-height: 1.5; margin-bottom: 20px;">
-      Test your understanding of how narrative films borrow non-fiction grammar. Select the correct term for the scenario below:
+      Narrative feature films frequently borrow non-fiction grammar to trick or immerse viewers. Read each cinematic scenario below, examine the visual clues, and select the correct technique!
     </p>
 
-    <div style="background: #f1f8ff; border-left: 4px solid #0366d6; padding: 15px; margin-bottom: 20px; font-size: 14px; color: #24292e; line-height: 1.5;">
-      <strong>Scenario:</strong> A science-fiction film about alien segregation opens with simulated breaking-news tickers, shaky security camera footage, and expert talking-head interviews discussing extraterrestrial containment. 
+    <!-- GAME BOARD CONTAINER -->
+    <div id="eq-game-container">
+      
+      <!-- PROGRESS COUNTER -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <span id="eq-counter" style="font-size: 13px; font-weight: bold; color: #6a737d; text-transform: uppercase;">Challenge 1 of 3</span>
+        <div id="eq-graphic" style="font-size: 28px;">👽</div>
+      </div>
+
+      <!-- SCENARIO CARD -->
+      <div style="background: #f1f8ff; border: 1px solid #bbe2ff; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+        <h4 style="margin: 0 0 8px 0; font-size: 16px; color: #0366d6;" id="eq-title">Alien Segregation Newsroom</h4>
+        <p id="eq-scenario-text" style="margin: 0; font-size: 15px; color: #24292e; line-height: 1.5; font-weight: 500;">
+          A science-fiction film about stranded extraterrestrials opens with simulated breaking-news tickers, shaky security camera footage, and expert talking-head interviews discussing containment.
+        </p>
+      </div>
+
+      <!-- INTERACTIVE OPTIONS BUTTONS -->
+      <div id="eq-options" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+        <!-- Dynamically injected via JavaScript to ensure full clickability -->
+      </div>
+
+      <!-- FEEDBACK & NEXT BUTTON -->
+      <div id="eq-feedback-box" style="display: none; padding: 15px; border-radius: 6px; margin-top: 15px;">
+        <p id="eq-feedback-text" style="margin: 0 0 12px 0; font-size: 14px; line-height: 1.5; font-weight: 500;"></p>
+        <button id="eq-next-btn" onclick="eqNextQuestion()" style="background: #24292e; color: white; border: none; padding: 10px 20px; border-radius: 4px; font-size: 14px; font-weight: bold; cursor: pointer;">
+          Next Challenge ➔
+        </button>
+      </div>
+
     </div>
 
-    <div id="quiz-options" style="display: flex; flex-direction: column; gap: 10px;">
-      <button onclick="checkQuizAnswer(false)" style="text-align: left; padding: 12px 15px; background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; cursor: pointer; font-size: 14px; color: #24292e;">A. Classical Hollywood Hagiography</button>
-      <button onclick="checkQuizAnswer(true)" style="text-align: left; padding: 12px 15px; background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; cursor: pointer; font-size: 14px; color: #24292e;">B. Documentary-Style Realism (Pseudo-Journalism)</button>
-      <button onclick="checkQuizAnswer(false)" style="text-align: left; padding: 12px 15px; background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; cursor: pointer; font-size: 14px; color: #24292e;">C. Direct Cinema Observational Mode</button>
+    <!-- GAME COMPLETION SCREEN -->
+    <div id="eq-completion-screen" style="display: none; text-align: center; padding: 30px 10px;">
+      <div style="font-size: 54px; margin-bottom: 15px;">🎉</div>
+      <h3 style="margin: 0 0 10px 0; font-size: 24px; color: #24292e;">Mission Accomplished!</h3>
+      <p id="eq-final-score" style="font-size: 16px; color: #586069; margin-bottom: 20px; line-height: 1.5;"></p>
+      <button onclick="eqResetGame()" style="background: #28a745; color: white; border: none; padding: 12px 24px; border-radius: 6px; font-size: 15px; font-weight: bold; cursor: pointer;">
+        Play Again 🔄
+      </button>
     </div>
 
-    <div id="quiz-feedback" style="margin-top: 15px; font-size: 14px; font-weight: bold; display: none;"></div>
   </div>
-
 </div>
+
+<!-- ROBUST EMBEDDED JAVASCRIPT (Guarantees Event Binding & Interactivity) -->
+<script>
+  (function() {
+    const eqQuestions = [
+      {
+        title: "Alien Segregation Newsroom (*District 9* style)",
+        graphic: "🛸",
+        text: "A science-fiction film about stranded extraterrestrials opens with simulated breaking-news tickers, shaky security camera footage, and expert talking-head interviews discussing containment.",
+        options: [
+          { text: "A. Classical Hollywood Hagiography", correct: false },
+          { text: "B. Documentary-Style Realism (Pseudo-Journalism)", correct: true },
+          { text: "C. Direct Cinema Observational Mode", correct: false }
+        ],
+        feedback: "Spot on! By using news tickers, security feeds, and expert interviews, narrative films ground fantastical sci-fi premises in documentary realism to make them feel frighteningly plausible."
+      },
+      {
+        title: "The Shaky-Cam Found Footage Survival",
+        graphic: "📹",
+        text: "A horror film features chaotic, handheld camera footage supposedly recovered from
